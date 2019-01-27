@@ -20,9 +20,7 @@
               <button class="button button-default" ng-click="toBuy.removeFromList($index)"><span class="glyphicon glyphicon-ok">Bought</span></button>
             </li>
           </ul>
-
-          <!-- <div>{{toBuy.message}}</div> -->
-          <div class="emptyMessage">{{toBuy.message}}</div>
+          <div class="emptyMessage" ng-if="toBuy.message">{{toBuy.message}}</div>
           <!-- Every thing is bought! -->
         </div>
 
@@ -34,8 +32,7 @@
               Bought {{item.quantity}} {{item.name}}
             </li>
           </ul>
-          <!-- <div>{{bought.message}}</div> -->
-            <div class="emptyMessage">{{bought.message}}</div>
+            <div class="emptyMessage" ng-if="bought.message">{{bought.message}}</div>
           <!-- Nothing bought yet. -->
         </div>
 

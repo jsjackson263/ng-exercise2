@@ -1,6 +1,10 @@
 (function() {
   'use strict'
 
+  // This application needs re-work:
+  //  - 'Already Bought' message not getting updated.
+  //  - Implementation To be re-visited
+
   var app = angular.module('ShoppingListCheckOff', []);
   app.controller('ToBuyController',ToBuyController);
   app.controller('AlreadyBoughtController', AlreadyBoughtController);
@@ -10,15 +14,16 @@
   ToBuyController.$inject = ['checkOffService'];
   function ToBuyController(checkOffService) {
     var toBuy = this;
+
     toBuy.items = checkOffService.getToBuyList();
 
     toBuy.removeFromList = function(itemIndex) {
       checkOffService.removeFromToBuyList(itemIndex);
+      // checkOffService.setMessage();
+
+      toBuy.message = checkOffService.getToBuyMessage();
+      console.log("toBuy.message: ", toBuy.message);
     };
-
-    toBuy.message = checkOffService.getToBuyMessage();
-    // console.log("toBuy.message: ", toBuy.message)
-
 
   }
 
@@ -29,9 +34,8 @@
     bought.items = checkOffService.getBoughtList();
 
     bought.message = checkOffService.getBoughtMessage();
-    // console.log("bought.message: ", bought.message)
-
-
+    console.log("bought.message: ", bought.message);
+    
   }
 
 
@@ -45,11 +49,11 @@
     var boughtList = [];
 
     var toBuyMessage = "";
-    var alreadyBoughtMessage = "";
+    var boughtMessage = "";
 
     service.getToBuyList = function() {
       toBuyList = loadToBuyList();
-      updateMessages();
+      updateMessage();
       return toBuyList;
     };
 
@@ -61,7 +65,7 @@
       // next, remove it from "To Buy" list
       toBuyList.splice(itemIndex, 1);
 
-      updateMessages();
+      updateMessage();
 
     };
 
@@ -74,27 +78,20 @@
     };
 
     service.getBoughtMessage = function() {
-      return alreadyBoughtMessage;
+      return boughtMessage;
     };
 
-
-    function updateMessages() {
-      if (toBuyList.length === 0) {
-          toBuyMessage = "Every thing is bought! !!!";
-      } else {
-          toBuyMessage = "";
-      }
-
+    function updateMessage() {
       if (boughtList.length === 0) {
-          alreadyBoughtMessage = "Nothing bought yet! !!!";
+          boughtMessage = "Nothing bought yet! !!!";
+          toBuyMessage = "";
+      } else if (toBuyList.length === 0) {
+          toBuyMessage = "Every thing is bought! !!!";
+          boughtMessage = "";
       } else {
-        alreadyBoughtMessage = "";
+        toBuyMessage = "";
+        boughtMessage = "";
       }
-      console.log("toBuyList.length: ", toBuyList.length);
-      console.log("toBuy.message: ", toBuyMessage);
-
-      console.log("boughtList.length: ", boughtList.length);
-      console.log("bought.message: ", alreadyBoughtMessage);
 
     }
 
