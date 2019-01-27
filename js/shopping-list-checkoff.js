@@ -35,7 +35,7 @@
 
     bought.message = checkOffService.getBoughtMessage();
     console.log("bought.message: ", bought.message);
-    
+
   }
 
 
@@ -124,14 +124,30 @@
       toBuyList.push(item);
 
       item = new Object();
-      item.name = "paper cups & plates";
-      item.quantity = 16;
+      item.name = "paper plates";
+      item.quantity = 9;
       toBuyList.push(item);
 
       item = new Object();
       item.name = "sausages";
-      item.quantity = 6;
+      item.quantity = 10;
       toBuyList.push(item);
+
+      item = new Object();
+      item.name = "muffins";
+      item.quantity = 29;
+      toBuyList.push(item);
+
+      item = new Object();
+      item.name = "apples";
+      item.quantity = 16;
+      toBuyList.push(item);
+
+      item = new Object();
+      item.name = "potato chips";
+      item.quantity = 4;
+      toBuyList.push(item);
+
 
       return toBuyList;
     }
