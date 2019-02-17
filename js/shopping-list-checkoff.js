@@ -1,10 +1,6 @@
 (function() {
   'use strict'
 
-  // This application needs re-work:
-  //  - 'Already Bought' message not getting updated.
-  //  - Implementation To be re-visited
-
   var app = angular.module('ShoppingListCheckOff', []);
   app.controller('ToBuyController',ToBuyController);
   app.controller('AlreadyBoughtController', AlreadyBoughtController);
@@ -33,8 +29,11 @@
 
     bought.items = checkOffService.getBoughtList();
 
-    bought.message = checkOffService.getBoughtMessage();
-    console.log("bought.message: ", bought.message);
+    bought.$doCheck = function() {
+      bought.message = checkOffService.getBoughtMessage();
+      console.log("  bought.$doCheck - bought.message: ", bought.message);
+    };
+
 
   }
 
